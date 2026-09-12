@@ -1,0 +1,207 @@
+/* ==========================================================================
+   Global Footer Styles
+   ========================================================================== */
+
+.global-footer {
+  background-color: #0f172a; /* Deep industrial charcoal/dark blue */
+  color: #94a3b8;
+  font-family: inherit;
+  padding-top: 4rem;
+  border-top: 3px solid #ff6600; /* Primary brand orange header accent */
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem 3rem 1.5rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.25fr;
+  gap: 2.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   Logo & Brand Section
+   -------------------------------------------------------------------------- */
+
+.footer-brand-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
+}
+
+.logo-main-text {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.accent-dot {
+  color: #ff6600; /* PMW Orange Accent */
+}
+
+.logo-subtext {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #ff6600;
+  letter-spacing: 0.35em; /* Creates clean industrial spacing */
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+  opacity: 0.95;
+}
+
+.corporate-statement {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #cbd5e1;
+  margin-bottom: 1.5rem;
+}
+
+/* Compliance Badges */
+.compliance-badges {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.compliance-tag {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  border: 1px solid #334155;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+}
+
+/* --------------------------------------------------------------------------
+   Footer Link Columns
+   -------------------------------------------------------------------------- */
+
+.footer-links-col h4,
+.footer-contact-col h4 {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.footer-links-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links-col li {
+  margin-bottom: 0.75rem;
+}
+
+.footer-links-col a {
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.footer-links-col a:hover {
+  color: #ff6600;
+  transform: translateX(3px);
+}
+
+/* --------------------------------------------------------------------------
+   Contact & Facility Logistics
+   -------------------------------------------------------------------------- */
+
+.logistics-detail {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  color: #cbd5e1;
+}
+
+.logistics-detail strong {
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Footer Bottom Bar & Legal
+   -------------------------------------------------------------------------- */
+
+.footer-bottom-bar {
+  background-color: #090d16;
+  border-top: 1px solid #1e293b;
+  padding: 1.25rem 0;
+}
+
+.footer-bottom-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.825rem;
+  color: #64748b;
+}
+
+.legal-links {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.legal-links a {
+  color: #64748b;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.legal-links a:hover {
+  color: #ff6600;
+}
+
+.legal-links .divider {
+  color: #334155;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Design
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .footer-brand-col {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-brand-col {
+    grid-column: span 1;
+  }
+
+  .footer-bottom-container {
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+  }
+}
