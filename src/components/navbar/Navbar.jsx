@@ -1,55 +1,39 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const navRef = useRef(null);
-
-  // Dynamically calculate actual rendered navbar height and set CSS variable
-  const updateNavbarHeight = () => {
-    if (navRef.current) {
-      const height = navRef.current.getBoundingClientRect().height;
-      document.documentElement.style.setProperty('--navbar-height', `${height}px`);
-    }
-  };
-
-  useLayoutEffect(() => {
-    updateNavbarHeight();
-    window.addEventListener('resize', updateNavbarHeight);
-    return () => window.removeEventListener('resize', updateNavbarHeight);
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrolled = window.scrollY > 40;
-      setIsScrolled(scrolled);
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
     };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Recalculate height whenever scroll state changes (e.g., top-bar hide/show)
-  useEffect(() => {
-    updateNavbarHeight();
-  }, [isScrolled]);
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
-  const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev);
-  const closeMobileMenu = () => setIsMobileMenuOpen(false);
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
 
   return (
-    <header 
-      ref={navRef} 
-      className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}
-    >
+    <header className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
       {/* ROW 1: TOP INFO BAR */}
       <div className="top-bar">
         <div className="top-bar-content">
           <div className="top-bar-left">
-            <span>📞 +254 726 471 291 | +254 723 878 464</span>
             <span>📍 Light Industries, Off Outering Road - Nairobi, Kenya</span>
+            <span>📞 +254 726 471 291 | +254 723 878 464</span>
             <span>✉️ info@philorenda.co.ke</span>
           </div>
           <div className="top-bar-right">
@@ -111,7 +95,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* ROW 2: MAIN NAVIGATION CONTAINER */}
+      {/* ROW 2: MAIN NAVIGATION */}
       <div className="navbar-container">
         {/* Brand / Logo */}
         <div className="navbar-logo">
@@ -123,12 +107,12 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Backdrop Overlay */}
+        {/* Dim Overlay when Drawer is open */}
         {isMobileMenuOpen && (
           <div className="menu-backdrop" onClick={closeMobileMenu}></div>
         )}
 
-        {/* Navigation Drawer */}
+        {/* Sliding Navigation Drawer */}
         <div className={`navbar-links ${isMobileMenuOpen ? 'active' : ''}`}>
           <Link to="/" className="nav-item" onClick={closeMobileMenu}>
             Home
@@ -151,7 +135,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Hamburger Toggle Button */}
+        {/* Hamburger / Cross Button */}
         <button
           className={`hamburger ${isMobileMenuOpen ? 'toggle' : ''}`}
           onClick={toggleMobileMenu}
@@ -167,3 +151,45 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
