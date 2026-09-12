@@ -169,7 +169,8 @@ function Home() {
                       <hr className="card-faint-divider" />
 
                       <div className="product-price price-on-request">
-                        {item.price ? `KSh ${item.price}` : "Price Available Upon Request"}
+                        {/* {item.price ? `KSh ${item.price}` : "Price Available Upon Request"} */}
+                        {"Price Available Upon Request"}
                       </div>
 
                       <div className="product-actions">
