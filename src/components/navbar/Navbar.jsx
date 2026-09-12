@@ -1,33 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const navRef = useRef(null);
+
+  // Dynamically calculate actual rendered navbar height and set CSS variable
+  const updateNavbarHeight = () => {
+    if (navRef.current) {
+      const height = navRef.current.getBoundingClientRect().height;
+      document.documentElement.style.setProperty('--navbar-height', `${height}px`);
+    }
+  };
+
+  useLayoutEffect(() => {
+    updateNavbarHeight();
+    window.addEventListener('resize', updateNavbarHeight);
+    return () => window.removeEventListener('resize', updateNavbarHeight);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      const scrolled = window.scrollY > 40;
+      setIsScrolled(scrolled);
     };
-    window.addEventListener('scroll', handleScroll);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+  // Recalculate height whenever scroll state changes (e.g., top-bar hide/show)
+  useEffect(() => {
+    updateNavbarHeight();
+  }, [isScrolled]);
 
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-  };
+  const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev);
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   return (
-    <header className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
+    <header 
+      ref={navRef} 
+      className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}
+    >
       {/* ROW 1: TOP INFO BAR */}
       <div className="top-bar">
         <div className="top-bar-content">
@@ -95,7 +111,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* ROW 2: MAIN NAVIGATION */}
+      {/* ROW 2: MAIN NAVIGATION CONTAINER */}
       <div className="navbar-container">
         {/* Brand / Logo */}
         <div className="navbar-logo">
@@ -107,12 +123,12 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Dim Overlay when Drawer is open */}
+        {/* Backdrop Overlay */}
         {isMobileMenuOpen && (
           <div className="menu-backdrop" onClick={closeMobileMenu}></div>
         )}
 
-        {/* Sliding Navigation Drawer */}
+        {/* Navigation Drawer */}
         <div className={`navbar-links ${isMobileMenuOpen ? 'active' : ''}`}>
           <Link to="/" className="nav-item" onClick={closeMobileMenu}>
             Home
@@ -135,7 +151,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Hamburger / Cross Button */}
+        {/* Hamburger Toggle Button */}
         <button
           className={`hamburger ${isMobileMenuOpen ? 'toggle' : ''}`}
           onClick={toggleMobileMenu}
@@ -151,45 +167,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
