@@ -48,7 +48,7 @@ function Dashboard() {
       formData.append('category', category);
       formData.append('image', image);
 
-      const response = await fetch('http://localhost:5000/api/items', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/items`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
